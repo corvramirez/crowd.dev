@@ -541,6 +541,7 @@ export class OrganizationSyncService {
     p.obj_grossDeparturesByMonth = data.grossDeparturesByMonth
     p.obj_naics = data.naics
     p.string_arr_tags = data.tags
+    p.string_arr_tags = data.tags
 
     // identities
     const p_identities = []

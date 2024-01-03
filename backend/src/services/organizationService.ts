@@ -274,7 +274,12 @@ export default class OrganizationService extends LoggerBase {
       )
 
       this.options.log.info({ originalId, toMergeId }, 'Organizations merged!')
-      return { status: 200, mergedId: originalId }
+      return {
+        status: 200,
+        mergedId: originalId,
+        original: original.displayName,
+        toMerge: toMerge.displayName,
+      }
     } catch (err) {
       this.options.log.error(err, 'Error while merging organizations!', {
         originalId,
@@ -809,6 +814,10 @@ export default class OrganizationService extends LoggerBase {
 
   async findOrCreateByDomain(domain) {
     return OrganizationRepository.findOrCreateByDomain(domain, this.options)
+  }
+
+  async findByIdOpensearch(id: string, segmentId?: string) {
+    return OrganizationRepository.findByIdOpensearch(id, this.options, segmentId)
   }
 
   async query(data) {
