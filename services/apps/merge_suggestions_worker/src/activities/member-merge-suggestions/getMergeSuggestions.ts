@@ -7,7 +7,7 @@ import {
 } from 'types'
 import { svc } from '../../main'
 import { IMemberMergeSuggestion, OpenSearchIndex } from '@crowd/types'
-import { calculateSimilarity, prefixLength } from 'utils'
+import { calculateSimilarity } from 'utils'
 import MemberMergeSuggestionsRepository from 'repo/memberMergeSuggestions.repo'
 
 /**
@@ -118,17 +118,6 @@ export async function getMergeSuggestions(
               },
             },
           })
-
-          // also check for prefix for identities that has more than 5 characters and no whitespace
-          if (identity.string_username.length > 5 && identity.string_username.indexOf(' ') === -1) {
-            identitiesPartialQuery.should[2].nested.query.bool.should.push({
-              prefix: {
-                [`nested_identities.keyword_username`]: {
-                  value: cleanedIdentityName.slice(0, prefixLength(cleanedIdentityName)),
-                },
-              },
-            })
-          }
         }
       }
     }
