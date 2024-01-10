@@ -1,5 +1,6 @@
 <template>
   <router-link
+    v-if="!props.hideEdit"
     :to="{
       name: 'memberEdit',
       params: {
@@ -36,6 +37,7 @@
     <span class="ml-2 text-xs"> Find GitHub </span>
   </button>
   <button
+    v-if="!props.hideMerge"
     class="h-10 el-dropdown-menu__item w-full"
     :disabled="isEditLockedForSampleData"
     type="button"
@@ -48,6 +50,14 @@
   >
     <i class="ri-group-line text-base mr-2" /><span class="text-xs">Merge contributor</span>
   </button>
+  <a
+    class="h-10 el-dropdown-menu__item"
+    href="https://app.formbricks.com/s/clr4u0mp29k228up0nh9yurm5"
+    target="_blank"
+    rel="noopener noreferrer"
+  >
+    <span class="ri-split-cells-horizontal text-base mr-2 text-gray-400" />Request unmerge
+  </a>
 
   <!-- Hubspot -->
   <button
@@ -90,7 +100,7 @@
   >
     <span>
       <button
-        v-if="!member.attributes.isTeamMember?.default"
+        v-if="!member.attributes?.isTeamMember?.default"
         class="h-10 el-dropdown-menu__item w-full"
         :disabled="isEditLockedForSampleData"
         type="button"
@@ -107,7 +117,7 @@
     </span>
   </el-tooltip>
   <button
-    v-if="member.attributes.isTeamMember?.default"
+    v-if="member.attributes?.isTeamMember?.default"
     class="h-10 el-dropdown-menu__item w-full"
     :disabled="isEditLockedForSampleData"
     type="button"
@@ -208,6 +218,8 @@ enum Actions {
 const emit = defineEmits<{(e: 'merge'): void, (e: 'closeDropdown'): void, (e: 'findGithub'): void }>();
 const props = defineProps<{
   member: Member;
+  hideMerge: boolean;
+  hideEdit: boolean;
 }>();
 
 const store = useStore();

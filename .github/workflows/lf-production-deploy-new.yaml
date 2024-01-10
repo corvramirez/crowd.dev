@@ -27,16 +27,16 @@ on:
         description: Deploy emails-worker service?
         required: true
         type: boolean
-      deploy_members_enrichment_worker:
-        description: Deploy members-enrichment-worker service?
-        required: true
-        type: boolean
       deploy_merge_suggestions_worker:
         description: Deploy merge-suggestions-worker service?
         required: true
         type: boolean
       deploy_entity_merging_worker:
         description: Deploy entity-merging-worker service?
+        required: true
+        type: boolean
+      deploy_members_enrichment_worker:
+        description: Deploy members-enrichment-worker service?
         required: true
         type: boolean
       deploy_script_executor:
@@ -243,7 +243,7 @@ jobs:
 
       - name: Set docker image output
         id: image
-        run: echo "IMAGE=${{ steps.image-builder.outputs.image }}" >> $GITHUB_OUTPUT
+        run: echo "IMAGE=${{ steps.image-builder.outputs.image }}" >> $GITHUB_OUTPU
 
   build-and-push-script-executor:
     runs-on: ubuntu-latest
